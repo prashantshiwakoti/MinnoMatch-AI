@@ -3,8 +3,17 @@
     "id": "minno-001",
     "title": "Myllypuro Active Ageing & Fall Prevention Companion",
     "challenge_statement": "Elderly citizens in Helsinki face mobility isolation and fall risks. How can we combine non-invasive computer vision, physiotherapeutic exercise routines, and empathetic voice guidance to empower independent living?",
-    "sdgs": ["SDG 3: Good Health and Well-being", "SDG 10: Reduced Inequalities", "SDG 11: Sustainable Cities"],
-    "campus_synergy": ["Myllypuro Campus (Health & Well-being)", "Karamalmi Campus (ICT & Sensor Tech)", "Arabia Campus (Design & Media)", "Myyrmäki Campus (Business Services)"],
+    "sdgs": [
+      "SDG 3: Good Health and Well-being",
+      "SDG 10: Reduced Inequalities",
+      "SDG 11: Sustainable Cities"
+    ],
+    "campus_synergy": [
+      "Myllypuro Campus (Health & Well-being)",
+      "Karamalmi Campus (ICT & Sensor Tech)",
+      "Arabia Campus (Design & Media)",
+      "Myyrmäki Campus (Business Services)"
+    ],
     "work_packages": [
       {
         "faculty": "Health Care & Social Services",
@@ -37,8 +46,15 @@
     "id": "minno-002",
     "title": "Arabia Circular Textile Passport & Gamified Upcycling",
     "challenge_statement": "Post-consumer textile waste in the Helsinki capital region is surging. How can digital product passports, blockchain/QR tracing, and participatory community design incentivize citizens to repair, repurpose, and recycle clothing?",
-    "sdgs": ["SDG 12: Responsible Consumption & Production", "SDG 13: Climate Action"],
-    "campus_synergy": ["Arabia Campus (Design)", "Karamalmi Campus (ICT)", "Myyrmäki Campus (Business)"],
+    "sdgs": [
+      "SDG 12: Responsible Consumption & Production",
+      "SDG 13: Climate Action"
+    ],
+    "campus_synergy": [
+      "Arabia Campus (Design)",
+      "Karamalmi Campus (ICT)",
+      "Myyrmäki Campus (Business)"
+    ],
     "work_packages": [
       {
         "faculty": "Culture & Design",
@@ -65,8 +81,16 @@
     "id": "minno-003",
     "title": "Karamalmi Smart Microgrid & Campus Carbon Nudge Dashboard",
     "challenge_statement": "Energy consumption spikes during laboratory and server operations. How can smart IoT telemetry combined with behavioural economics and gamification motivate students and staff to balance campus peak loads?",
-    "sdgs": ["SDG 7: Affordable & Clean Energy", "SDG 11: Sustainable Cities", "SDG 13: Climate Action"],
-    "campus_synergy": ["Karamalmi Campus (Smart Tech)", "Myyrmäki Campus (Business)", "Arabia Campus (Media)"],
+    "sdgs": [
+      "SDG 7: Affordable & Clean Energy",
+      "SDG 11: Sustainable Cities",
+      "SDG 13: Climate Action"
+    ],
+    "campus_synergy": [
+      "Karamalmi Campus (Smart Tech)",
+      "Myyrmäki Campus (Business)",
+      "Arabia Campus (Media)"
+    ],
     "work_packages": [
       {
         "faculty": "Technology & ICT",

@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="csrf-token" content="{{ csrf_token }}">
   <title>MinnoMatch AI | Metropolia UAS Innovation Project Synthesizer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,9 +76,9 @@
 
           <div class="preset-pills">
             <span class="preset-label">Try quick prompts:</span>
-            <button class="pill-btn" onclick="setPrompt('How can we use edge computer vision and empathetic audio to assist dementia patients in Helsinki home care?')">👵 Dementia Home Care</button>
-            <button class="pill-btn" onclick="setPrompt('Reduce single-use packaging and food waste on Metropolia Myyrmäki campus using IoT scales and student incentives.')">🥗 Campus Food Waste</button>
-            <button class="pill-btn" onclick="setPrompt('Help international immigrant healthcare students practice conversational Finnish clinical vocabulary through an AI avatar.')">🏥 Immigrant Nurse AI Tutor</button>
+            <button type="button" class="pill-btn" data-prompt="How can we use edge computer vision and empathetic audio to assist dementia patients in Helsinki home care?">👵 Dementia Home Care</button>
+            <button type="button" class="pill-btn" data-prompt="Reduce single-use packaging and food waste on Metropolia Myyrmäki campus using IoT scales and student incentives.">🥗 Campus Food Waste</button>
+            <button type="button" class="pill-btn" data-prompt="Help international immigrant healthcare students practice conversational Finnish clinical vocabulary through an AI avatar.">🏥 Immigrant Nurse AI Tutor</button>
           </div>
 
           <form id="synthesizeForm">
@@ -223,7 +224,7 @@
             </div>
 
             <div class="challenge-card-footer">
-              <button class="btn btn-outline btn-sm" onclick='viewProjectCharter({{ c | tojson }})'>📄 View 10-ECTS Charter</button>
+              <button class="btn btn-outline btn-sm charter-view-btn" data-id="{{ c.id }}">📄 View 10-ECTS Charter</button>
             </div>
           </div>
           {% endfor %}
@@ -234,29 +235,29 @@
 
   <!-- MODAL: PROJECT CHARTER -->
   <div class="modal hidden" id="charterModal">
-    <div class="modal-backdrop" onclick="closeModal('charterModal')"></div>
+    <div class="modal-backdrop modal-close-trigger" data-modal="charterModal"></div>
     <div class="modal-card">
       <div class="modal-header">
         <h3>Metropolia 10-ECTS MINNO Project Charter</h3>
-        <button class="close-btn" onclick="closeModal('charterModal')">&times;</button>
+        <button class="close-btn modal-close-trigger" data-modal="charterModal">&times;</button>
       </div>
       <div class="modal-body">
         <pre id="charterMarkdownPreview" class="markdown-preview"></pre>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" id="copyCharterBtn">📋 Copy Markdown</button>
-        <button class="btn btn-primary" onclick="closeModal('charterModal')">Done</button>
+        <button class="btn btn-primary modal-close-trigger" data-modal="charterModal">Done</button>
       </div>
     </div>
   </div>
 
   <!-- MODAL: SETTINGS -->
   <div class="modal hidden" id="settingsModal">
-    <div class="modal-backdrop" onclick="closeModal('settingsModal')"></div>
+    <div class="modal-backdrop modal-close-trigger" data-modal="settingsModal"></div>
     <div class="modal-card modal-sm">
       <div class="modal-header">
         <h3>AI Engine & API Key Settings</h3>
-        <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
+        <button class="close-btn modal-close-trigger" data-modal="settingsModal">&times;</button>
       </div>
       <div class="modal-body">
         <form id="settingsForm">

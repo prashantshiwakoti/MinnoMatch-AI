@@ -3,6 +3,7 @@ Automated Screenshot Generator for MinnoMatch AI using Playwright
 """
 
 import os
+import sys
 import time
 import subprocess
 from playwright.sync_api import sync_playwright
@@ -12,7 +13,7 @@ os.makedirs(SCREENSHOTS_DIR, exist_ok=True)
 
 def main():
     print("Starting Flask test server...")
-    proc = subprocess.Popen(['python', 'app.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    proc = subprocess.Popen([sys.executable, 'app.py'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     time.sleep(2) # wait for server to start
 
     try:
@@ -28,20 +29,20 @@ def main():
 
             # 1. Capture Main / Synthesizer Tab before and after prompt
             print("1. Capturing Synthesizer Tab...")
-            page.click("text=👵 Dementia Home Care")
+            page.fill("#challengePrompt", "How can we use edge computer vision and empathetic audio to assist dementia patients in Helsinki home care?")
             page.click("#synthesizeBtn")
-            page.wait_for_selector("#synthesizeResult .synth-title", timeout=5000)
+            page.wait_for_selector("#synthesizeResult .synth-title", timeout=8000)
             time.sleep(1)
             page.screenshot(path=os.path.join(SCREENSHOTS_DIR, "01_ai_synthesizer.png"), full_page=True)
 
             # 2. Capture Project Charter Modal
             print("2. Capturing 10-ECTS Project Charter...")
             page.click("#viewCharterBtn")
-            page.wait_for_selector("#charterModal:not(.hidden)", timeout=3000)
+            page.wait_for_selector("#charterModal:not(.hidden)", timeout=4000)
             time.sleep(1)
             page.screenshot(path=os.path.join(SCREENSHOTS_DIR, "02_project_charter_modal.png"))
-            page.click("#charterModal .close-btn")
-            time.sleep(0.5)
+            page.evaluate('closeModal("charterModal")')
+            time.sleep(1)
 
             # 3. Capture Student Matcher Tab
             print("3. Capturing Student Matcher Tab...")
