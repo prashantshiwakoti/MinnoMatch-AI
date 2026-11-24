@@ -255,11 +255,16 @@
     <div class="modal-backdrop" onclick="closeModal('settingsModal')"></div>
     <div class="modal-card modal-sm">
       <div class="modal-header">
-        <h3>AI Engine Configuration</h3>
+        <h3>AI Engine & API Key Settings</h3>
         <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
       </div>
       <div class="modal-body">
         <form id="settingsForm">
+          <div id="keyStatusAlert" class="academic-box hidden" style="margin-bottom:1rem; padding:0.6rem 0.8rem;">
+            <strong>Active API Key:</strong> <span id="currentKeyPreview">None</span>
+            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:0.2rem;">🔒 Stored securely in local <code>.env</code> file (git-ignored).</div>
+          </div>
+
           <div class="form-group">
             <label for="providerSelect">AI Engine Provider:</label>
             <select id="providerSelect">
@@ -269,11 +274,20 @@
             </select>
           </div>
           <div class="form-group" id="apiKeyGroup">
-            <label for="apiKeyInput">API Key (Optional):</label>
+            <label for="apiKeyInput">API Key:</label>
             <input type="password" id="apiKeyInput" placeholder="Enter Gemini or OpenAI API Key...">
-            <small class="helper-text">Leave blank to use the built-in intelligent heuristic engine (no external internet/quota needed).</small>
+            <small class="helper-text">Leave blank to use the built-in intelligent heuristic engine (no external quota/network needed).</small>
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Save Configuration</button>
+          <div class="form-group" style="display:flex; align-items:center; gap:0.5rem; margin-top:0.5rem;">
+            <input type="checkbox" id="saveToEnvCheckbox" checked style="width:auto; cursor:pointer;">
+            <label for="saveToEnvCheckbox" style="margin:0; font-size:0.82rem; cursor:pointer; font-weight:500;">
+              Persist key in local <code>.env</code> file (safe & git-ignored)
+            </label>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:1.25rem;">
+            <button type="submit" class="btn btn-primary btn-block">💾 Save API Configuration</button>
+            <button type="button" class="btn btn-outline btn-block" id="clearKeyBtn">❌ Clear Stored Key</button>
+          </div>
         </form>
       </div>
     </div>

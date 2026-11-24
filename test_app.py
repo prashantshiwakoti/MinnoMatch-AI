@@ -71,5 +71,36 @@ class MinnoMatchTestCase(unittest.TestCase):
             self.assertIn('# METROPOLIA UNIVERSITY OF APPLIED SCIENCES', data['markdown'])
             self.assertIn('MINNO', data['markdown'])
 
+    def test_settings_persistence(self):
+        # Test configuring settings
+        payload = {
+            "provider": "gemini",
+            "api_key": "AIzaSyTestMockKey1234567890",
+            "persist": False  # keep test non-destructive to .env
+        }
+        response = self.app.post('/api/settings', json=payload)
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()
+        self.assertTrue(data['success'])
+        self.assertTrue(data['has_live_key'])
+        self.assertEqual(data['provider'], 'gemini')
+        self.assertIn('AIza', data['key_preview'])
+
+        # Check status endpoint reflects it
+        status_res = self.app.get('/api/status')
+        status_data = status_res.get_json()
+        self.assertTrue(status_data['has_live_key'])
+        self.assertEqual(status_data['provider'], 'gemini')
+
+        # Revert back to simulated
+        revert_payload = {
+            "provider": "simulated",
+            "api_key": "",
+            "persist": False
+        }
+        revert_res = self.app.post('/api/settings', json=revert_payload)
+        self.assertEqual(revert_res.status_code, 200)
+        self.assertFalse(revert_res.get_json()['has_live_key'])
+
 if __name__ == '__main__':
     unittest.main()

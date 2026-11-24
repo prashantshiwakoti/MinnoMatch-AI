@@ -333,21 +333,43 @@ document.getElementById('copyCharterBtn').addEventListener('click', () => {
 function initSettings() {
   const openBtn = document.getElementById('openSettingsBtn');
   const form = document.getElementById('settingsForm');
+  const clearBtn = document.getElementById('clearKeyBtn');
 
   openBtn.addEventListener('click', () => {
     openModal('settingsModal');
+    fetchStatus();
+  });
+
+  clearBtn.addEventListener('click', async () => {
+    try {
+      const res = await fetch('/api/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ provider: 'simulated', api_key: '', persist: true })
+      });
+      const data = await res.json();
+      if (data.success) {
+        document.getElementById('apiKeyInput').value = '';
+        closeModal('settingsModal');
+        fetchStatus();
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error clearing key');
+    }
   });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const provider = document.getElementById('providerSelect').value;
-    const apiKey = document.getElementById('apiKeyInput').value;
+    const apiKey = document.getElementById('apiKeyInput').value.trim();
+    const persist = document.getElementById('saveToEnvCheckbox').checked;
 
     try {
       const res = await fetch('/api/settings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ provider, api_key: apiKey })
+        body: JSON.stringify({ provider, api_key: apiKey, persist })
       });
       const data = await res.json();
       if (data.success) {
@@ -366,10 +388,25 @@ async function fetchStatus() {
     const res = await fetch('/api/status');
     const data = await res.json();
     const statusText = document.getElementById('engineStatusText');
+    const alertBox = document.getElementById('keyStatusAlert');
+    const keyPreviewSpan = document.getElementById('currentKeyPreview');
+    const providerSelect = document.getElementById('providerSelect');
+
+    if (data.provider) {
+      providerSelect.value = data.provider;
+    }
+
     if (data.has_live_key) {
-      statusText.textContent = `AI Engine: Live ${data.provider.toUpperCase()}`;
+      statusText.innerHTML = `AI Engine: Live <strong>${data.provider.toUpperCase()}</strong> (${data.key_preview || 'Active'})`;
+      if (alertBox && keyPreviewSpan) {
+        alertBox.classList.remove('hidden');
+        keyPreviewSpan.textContent = `${data.provider.toUpperCase()} [${data.key_preview}]`;
+      }
     } else {
       statusText.textContent = 'AI Engine: Local Semantic / Ready';
+      if (alertBox) {
+        alertBox.classList.add('hidden');
+      }
     }
   } catch (err) {
     console.error(err);
