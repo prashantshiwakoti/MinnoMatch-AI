@@ -1,0 +1,92 @@
+[
+  {
+    "id": "minno-001",
+    "title": "Myllypuro Active Ageing & Fall Prevention Companion",
+    "challenge_statement": "Elderly citizens in Helsinki face mobility isolation and fall risks. How can we combine non-invasive computer vision, physiotherapeutic exercise routines, and empathetic voice guidance to empower independent living?",
+    "sdgs": ["SDG 3: Good Health and Well-being", "SDG 10: Reduced Inequalities", "SDG 11: Sustainable Cities"],
+    "campus_synergy": ["Myllypuro Campus (Health & Well-being)", "Karamalmi Campus (ICT & Sensor Tech)", "Arabia Campus (Design & Media)", "Myyrmäki Campus (Business Services)"],
+    "work_packages": [
+      {
+        "faculty": "Health Care & Social Services",
+        "campus": "Myllypuro",
+        "role": "Clinical Ergonomics & Physiotherapy Specialist",
+        "contribution": "Validates exercise movements, assesses clinical fall-risk factors, and ensures patient safety standards."
+      },
+      {
+        "faculty": "Technology & ICT",
+        "campus": "Karamalmi",
+        "role": "Computer Vision & Edge IoT Engineer",
+        "contribution": "Develops privacy-first posture tracking using local edge AI (PoseNet/YOLO) without sending camera feeds to the cloud."
+      },
+      {
+        "faculty": "Culture & Design",
+        "campus": "Arabia",
+        "role": "Accessible UI/UX & Voice Interaction Designer",
+        "contribution": "Designs high-contrast, large-format interfaces and intuitive conversational prompts for elderly users with varying cognitive agility."
+      },
+      {
+        "faculty": "Business & Management",
+        "campus": "Myyrmäki",
+        "role": "Municipal Health Service Model & Grant Strategist",
+        "contribution": "Analyzes procurement viability for Helsinki City (Sosiaali- ja terveystoimiala) and calculates healthcare cost savings."
+      }
+    ],
+    "academic_potential": "Peer-reviewed paper on 'Multidisciplinary Approaches to Privacy-Preserving Computer Vision in Geriatric Physiotherapy' for the Finnish Society of Telemedicine and eHealth."
+  },
+  {
+    "id": "minno-002",
+    "title": "Arabia Circular Textile Passport & Gamified Upcycling",
+    "challenge_statement": "Post-consumer textile waste in the Helsinki capital region is surging. How can digital product passports, blockchain/QR tracing, and participatory community design incentivize citizens to repair, repurpose, and recycle clothing?",
+    "sdgs": ["SDG 12: Responsible Consumption & Production", "SDG 13: Climate Action"],
+    "campus_synergy": ["Arabia Campus (Design)", "Karamalmi Campus (ICT)", "Myyrmäki Campus (Business)"],
+    "work_packages": [
+      {
+        "faculty": "Culture & Design",
+        "campus": "Arabia",
+        "role": "Sustainable Fashion & Material Flow Designer",
+        "contribution": "Develops upcycling design patterns, modular garment concepts, and visual repair documentation."
+      },
+      {
+        "faculty": "Technology & ICT",
+        "campus": "Karamalmi",
+        "role": "Digital Identity & Cloud Architecture Developer",
+        "contribution": "Builds the digital garment passport data model, QR integration, and lightweight carbon footprint estimator."
+      },
+      {
+        "faculty": "Business & Management",
+        "campus": "Myyrmäki",
+        "role": "Circular Business Model & Second-Life Market Strategist",
+        "contribution": "Designs resale economics, deposit-return incentives, and commercial partnerships with Nordic retailers like Emmy and Tori."
+      }
+    ],
+    "academic_potential": "Case study on circular economy transitions published in the Nordic Journal of Architectural Research or Waste Management & Research."
+  },
+  {
+    "id": "minno-003",
+    "title": "Karamalmi Smart Microgrid & Campus Carbon Nudge Dashboard",
+    "challenge_statement": "Energy consumption spikes during laboratory and server operations. How can smart IoT telemetry combined with behavioural economics and gamification motivate students and staff to balance campus peak loads?",
+    "sdgs": ["SDG 7: Affordable & Clean Energy", "SDG 11: Sustainable Cities", "SDG 13: Climate Action"],
+    "campus_synergy": ["Karamalmi Campus (Smart Tech)", "Myyrmäki Campus (Business)", "Arabia Campus (Media)"],
+    "work_packages": [
+      {
+        "faculty": "Technology & ICT",
+        "campus": "Karamalmi",
+        "role": "IoT Sensor Integration & Energy Forecasting Engineer",
+        "contribution": "Connects building telemetry (Modbus/BACnet) to a time-series predictor predicting consumption spikes."
+      },
+      {
+        "faculty": "Culture & Design",
+        "campus": "Arabia",
+        "role": "Behavioural Feedback & Ambient Display Designer",
+        "contribution": "Creates digital signage and ambient light displays in campus lobbies indicating live carbon intensity."
+      },
+      {
+        "faculty": "Business & Management",
+        "campus": "Myyrmäki",
+        "role": "Energy Economics & Campus Gamification Lead",
+        "contribution": "Implements intra-campus energy-saving competitions with cafe voucher rewards funded by utility cost reductions."
+      }
+    ],
+    "academic_potential": "Submission to IEEE SmartGridComm or European Conference on Information Systems (ECIS)."
+  }
+]

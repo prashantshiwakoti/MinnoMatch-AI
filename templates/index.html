@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MinnoMatch AI | Metropolia UAS Innovation Project Synthesizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <!-- Top Banner / Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">METROPOLIA UAS</div>
+        <h1>MinnoMatch <span>AI</span></h1>
+        <p class="tagline">Multidisciplinary Innovation Project (MINNO 10 ECTS) Synthesizer & Matcher</p>
+      </div>
+      <div class="header-actions">
+        <div class="status-indicator" id="engineStatusBadge">
+          <span class="status-dot"></span>
+          <span id="engineStatusText">AI Engine: Heuristic / Ready</span>
+        </div>
+        <button class="btn btn-secondary btn-sm" id="openSettingsBtn">⚙️ Engine Settings</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Quick Metropolia Campus Bar -->
+    <div class="campus-ribbon">
+      <div class="campus-item" data-campus="karamalmi">
+        <span class="campus-badge badge-tech">Karamalmi</span>
+        <span class="campus-desc">Smart Solutions & ICT</span>
+      </div>
+      <div class="campus-item" data-campus="myllypuro">
+        <span class="campus-badge badge-health">Myllypuro</span>
+        <span class="campus-desc">Health & Well-being</span>
+      </div>
+      <div class="campus-item" data-campus="arabia">
+        <span class="campus-badge badge-culture">Arabia</span>
+        <span class="campus-desc">Creative Economy & Design</span>
+      </div>
+      <div class="campus-item" data-campus="myyrmaki">
+        <span class="campus-badge badge-biz">Myyrmäki</span>
+        <span class="campus-desc">Business & Industrial Tech</span>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="synthesizerTab">
+        <span class="tab-icon">⚡</span> 1. AI Challenge Synthesizer (Staff & Partner)
+      </button>
+      <button class="tab-btn" data-tab="matcherTab">
+        <span class="tab-icon">🎯</span> 2. Student Team Matcher (Student)
+      </button>
+      <button class="tab-btn" data-tab="catalogTab">
+        <span class="tab-icon">📚</span> 3. Active MINNO Projects (<span id="challengeCountBadge">{{ challenges|length }}</span>)
+      </button>
+    </nav>
+
+    <!-- TAB 1: CHALLENGE SYNTHESIZER -->
+    <section class="tab-content active" id="synthesizerTab">
+      <div class="grid-layout">
+        <!-- Input Panel -->
+        <div class="card input-card">
+          <div class="card-header">
+            <h2>Synthesize Ill-Defined Problem</h2>
+            <p>Input an open-ended R&D or campus challenge. The AI will decompose it into a cohesive 10-ECTS multidisciplinary plan across Metropolia's 4 faculties.</p>
+          </div>
+
+          <div class="preset-pills">
+            <span class="preset-label">Try quick prompts:</span>
+            <button class="pill-btn" onclick="setPrompt('How can we use edge computer vision and empathetic audio to assist dementia patients in Helsinki home care?')">👵 Dementia Home Care</button>
+            <button class="pill-btn" onclick="setPrompt('Reduce single-use packaging and food waste on Metropolia Myyrmäki campus using IoT scales and student incentives.')">🥗 Campus Food Waste</button>
+            <button class="pill-btn" onclick="setPrompt('Help international immigrant healthcare students practice conversational Finnish clinical vocabulary through an AI avatar.')">🏥 Immigrant Nurse AI Tutor</button>
+          </div>
+
+          <form id="synthesizeForm">
+            <div class="form-group">
+              <label for="challengePrompt">Ill-Defined Problem / Partner Need:</label>
+              <textarea id="challengePrompt" rows="5" placeholder="e.g. Helsinki regional hospitals need a better way to prevent elderly falls, but current sensor systems are too intrusive and cause privacy concerns..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block" id="synthesizeBtn">
+              <span class="btn-text">🚀 Synthesize Multidisciplinary Plan</span>
+              <span class="btn-spinner hidden"></span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="card output-card" id="synthesizedOutputCard">
+          <div class="card-header flex-between">
+            <div>
+              <h2>AI Multidisciplinary Decomposition</h2>
+              <p>Structured 10-ECTS MINNO Work Packages & Academic Scope</p>
+            </div>
+            <div class="output-actions hidden" id="outputActionButtons">
+              <button class="btn btn-outline btn-sm" id="saveChallengeBtn">💾 Save to Catalog</button>
+              <button class="btn btn-primary btn-sm" id="viewCharterBtn">📄 Export Project Charter</button>
+            </div>
+          </div>
+
+          <div id="synthesizePlaceholder" class="placeholder-state">
+            <div class="placeholder-icon">🧠</div>
+            <h3>No challenge synthesized yet</h3>
+            <p>Enter an ill-defined problem on the left or select a quick prompt to generate the cross-faculty R&D breakdown.</p>
+          </div>
+
+          <div id="synthesizeResult" class="result-state hidden">
+            <!-- Dynamic synthesis content loaded here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: STUDENT MATCHER -->
+    <section class="tab-content hidden" id="matcherTab">
+      <div class="grid-layout">
+        <div class="card">
+          <div class="card-header">
+            <h2>Find Your Multidisciplinary MINNO Match</h2>
+            <p>Every Metropolia student must collaborate outside their own discipline. Tell the AI your background and skills to discover your ideal project role.</p>
+          </div>
+
+          <form id="matcherForm">
+            <div class="form-group">
+              <label for="studentFaculty">Your Faculty / Campus:</label>
+              <select id="studentFaculty" required>
+                <option value="Technology & ICT">Technology & ICT (Karamalmi Campus)</option>
+                <option value="Health Care & Social Services">Health Care & Social Services (Myllypuro Campus)</option>
+                <option value="Culture & Design">Culture & Design (Arabia Campus)</option>
+                <option value="Business & Management">Business & Management (Myyrmäki Campus)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="studentDegree">Degree / Major:</label>
+              <input type="text" id="studentDegree" placeholder="e.g., Software Engineering, Nursing, XR Design, International Business" required>
+            </div>
+
+            <div class="form-group">
+              <label for="studentSkills">Key Skills & Tools (comma-separated):</label>
+              <input type="text" id="studentSkills" placeholder="e.g., Python, PyTorch, Figma, Clinical Diagnostics, Agile, Marketing" required>
+            </div>
+
+            <div class="form-group">
+              <label for="studentInterests">Personal Passion & R&D Interests:</label>
+              <textarea id="studentInterests" rows="3" placeholder="e.g., Interested in healthcare AI, sustainability, assistive technology, or ethics..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" id="matchBtn">
+              🔍 Match Me to Active Innovation Projects
+            </button>
+          </form>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h2>Recommended Project Roles</h2>
+            <p>Ranked by cross-disciplinary synergy and skill compatibility.</p>
+          </div>
+
+          <div id="matchResultsContainer">
+            <div class="placeholder-state">
+              <div class="placeholder-icon">🎯</div>
+              <h3>Ready to Match</h3>
+              <p>Submit your profile to see tailored role contributions in active Metropolia R&D projects.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: BROWSE CATALOG -->
+    <section class="tab-content hidden" id="catalogTab">
+      <div class="card">
+        <div class="card-header flex-between">
+          <div>
+            <h2>Active Metropolia MINNO Innovation Projects</h2>
+            <p>10-ECTS projects connecting students across Metropolia's 4 campuses with public and private sector challenges.</p>
+          </div>
+          <div class="catalog-filters">
+            <button class="filter-btn active" data-filter="all">All Campuses</button>
+            <button class="filter-btn" data-filter="Karamalmi">Karamalmi (ICT)</button>
+            <button class="filter-btn" data-filter="Myllypuro">Myllypuro (Health)</button>
+            <button class="filter-btn" data-filter="Arabia">Arabia (Design)</button>
+            <button class="filter-btn" data-filter="Myyrmäki">Myyrmäki (Biz)</button>
+          </div>
+        </div>
+
+        <div class="challenges-grid" id="challengesCatalog">
+          {% for c in challenges %}
+          <div class="challenge-card" data-campuses="{{ c.campus_synergy | join(' ') }}">
+            <div class="challenge-top">
+              <span class="challenge-id">{{ c.id }}</span>
+              <div class="sdg-tags">
+                {% for sdg in c.sdgs %}
+                  <span class="sdg-badge">{{ sdg.split(':')[0] }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            <h3 class="challenge-title">{{ c.title }}</h3>
+            <p class="challenge-desc">{{ c.challenge_statement }}</p>
+
+            <div class="work-packages-preview">
+              <h4>Multidisciplinary Campus Allocation:</h4>
+              <div class="wp-tags">
+                {% for wp in c.work_packages %}
+                  <div class="wp-tag">
+                    <strong>{{ wp.campus.split(' ')[0] }}:</strong> {{ wp.role }}
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+
+            <div class="academic-note">
+              <strong>🔬 Academic Scope:</strong> {{ c.academic_potential }}
+            </div>
+
+            <div class="challenge-card-footer">
+              <button class="btn btn-outline btn-sm" onclick='viewProjectCharter({{ c | tojson }})'>📄 View 10-ECTS Charter</button>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: PROJECT CHARTER -->
+  <div class="modal hidden" id="charterModal">
+    <div class="modal-backdrop" onclick="closeModal('charterModal')"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Metropolia 10-ECTS MINNO Project Charter</h3>
+        <button class="close-btn" onclick="closeModal('charterModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <pre id="charterMarkdownPreview" class="markdown-preview"></pre>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="copyCharterBtn">📋 Copy Markdown</button>
+        <button class="btn btn-primary" onclick="closeModal('charterModal')">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SETTINGS -->
+  <div class="modal hidden" id="settingsModal">
+    <div class="modal-backdrop" onclick="closeModal('settingsModal')"></div>
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h3>AI Engine Configuration</h3>
+        <button class="close-btn" onclick="closeModal('settingsModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="settingsForm">
+          <div class="form-group">
+            <label for="providerSelect">AI Engine Provider:</label>
+            <select id="providerSelect">
+              <option value="gemini">Google Gemini (Recommended)</option>
+              <option value="openai">OpenAI (GPT-4o mini)</option>
+              <option value="simulated">Local Smart Heuristic Engine (Offline / No Key)</option>
+            </select>
+          </div>
+          <div class="form-group" id="apiKeyGroup">
+            <label for="apiKeyInput">API Key (Optional):</label>
+            <input type="password" id="apiKeyInput" placeholder="Enter Gemini or OpenAI API Key...">
+            <small class="helper-text">Leave blank to use the built-in intelligent heuristic engine (no external internet/quota needed).</small>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Save Configuration</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>MinnoMatch AI &bull; Built for Metropolia UAS Strategy & Development Services AI Project &bull; Python Flask + Modern JS</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
