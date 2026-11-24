@@ -226,4 +226,5 @@ Using LLMs to scaffold code accelerates prototyping velocity, especially when co
 This project was developed for the Metropolia University of Applied Sciences AI Project (Strategy and Development Services).
 Distributed under the MIT License.
 #   M i n n o M a t c h - A I  
+ #   M i n n o M a t c h - A I  
  
